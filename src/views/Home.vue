@@ -1,18 +1,44 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>
+      Typing
+    </h1>
+    <router-link to="/typing" class="start-btn">Start</router-link>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
   }
 }
 </script>
+
+<style scoped lang="scss">
+.home{
+  height: 300px;
+
+  h1{
+    line-height: 300px;
+  }
+}
+
+.start-btn{
+display: inline-block;
+text-decoration: none;
+padding: 0.4em 1em;
+border: 2px solid #808000;
+color: #808000;
+font-size: 18px;
+transition: 0.2s ease;
+}
+
+.start-btn:hover{
+    background-color: #808000;
+    color: #fff;
+}
+
+</style>

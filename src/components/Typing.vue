@@ -6,10 +6,15 @@
         <div v-if="timeText">
             {{timeText}}
         </div>
-        <div v-if="typeText" class="type-text">
-            {{typeText}}
+        <div class="type-text-wrapper">
+            <div v-if="typeText" class="type-text">
+                {{typeText}}
+            </div>
+            <Result v-if="resultBool"
+                v-bind:correct="correct"
+                v-bind:incorrect="incorrect"
+            ></Result>
         </div>
-        <Result v-if="resultBool"></Result>
     </div>
 
 </template>
@@ -26,7 +31,7 @@ export default {
             text: 'スペースを押して開始',
             typeText: '',
             timeText: '',
-            timeLimit: 20 * 1000,
+            timeLimit: 10 * 1000,
             interval: 1000,
             count: 2,
             startTime: '',
@@ -38,7 +43,7 @@ export default {
             resultBool: false, //リザルト画面の出力判定
             correct: '',
             incorrect: '',
-            question: [
+            question: [ //問題文
                 "apple",
                 "note",
                 "kouno",
@@ -83,9 +88,10 @@ export default {
                 this.startTimer();
             }.bind(this), 30);
             
-            if(this.timeLeft <= 50){ //多少の誤差は勘弁
+            if(this.timeLeft <= 50){ //タイマー終了時
                 this.timeLeft = 0;
-                this.resultBool = true
+                this.resultBool = true;
+                this.typeText = false;
                 console.log(this.timeLeft);
                 clearTimeout(timeId)
                 console.log(this.correct);
@@ -177,8 +183,16 @@ export default {
 
 .type-text{
     line-height: 500px;
+    // height: 300px;
     font-size: 48px;
     letter-spacing: 5px;
+    border: 2px solid #000;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.type-text-wrapper{
+
 }
 
 </style>

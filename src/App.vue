@@ -58,6 +58,6 @@ body{
 }
 
 .content-wrapper{
-  height: 600px;
+  height: 630px;
 }
 </style>

@@ -7,7 +7,7 @@
             {{timeText}}
         </div>
         <div class="type-text-wrapper">
-            <div v-if="typeText" class="type-text">
+            <div v-if="typeText" class="type-text" v-bind:class="{red: isActive}">
                 {{typeText}}
             </div>
             <Result v-if="resultBool"
@@ -52,7 +52,8 @@ export default {
                 "apex",
                 "css",
                 "html"
-            ]
+            ],
+            isActive: false
         }
     },
     methods:{
@@ -78,7 +79,11 @@ export default {
                 this.showQuestion();
 
                 let word = this.judgeKey();
-                this.keydownWord(word)
+                if(typeof word === 'undefined'){
+                    return
+                }else{
+                    this.keydownWord(word)
+                }
             }
         },
         startTimer(){
@@ -110,7 +115,8 @@ export default {
         },
         keydownWord(key){
             if(!this.resultBool){ //50ミリ秒以下は実行しない
-                if(key == this.question[this.q_ind][this.s_ind]){ //keyと問題の文字が一致した時
+                this.isActive = false;
+                if(key == this.question[this.q_ind][this.s_ind]){ //正解した時
                     this.array[this.s_ind] = key; //現在の単語をarrayにぶち込む
                     this.s_ind++; //一致した場合にはindexをあげる
                     this.correct++;
@@ -127,7 +133,11 @@ export default {
 
                 }else{ //keyと問題の文字が一致しなかった時
                     this.incorrect++;
+                    this.isActive = true;
+                    console.log(key)
                 }
+
+
             }
         },
         updateText(){
@@ -194,5 +204,22 @@ export default {
 .type-text-wrapper{
 
 }
+
+.red{
+    animation: flash 0.3s linear;
+
+}
+
+@keyframes flash {
+  0%,100% {
+    opacity: 1;
+    background-color: #fff;
+  }
+
+  50% {
+    opacity: 1;
+    background-color: red;
+  }
+} 
 
 </style>

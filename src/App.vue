@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/typing">Typing</router-link>
-      <router-link to="/result">Result</router-link>
-    </div>
     <div class=content-wrapper>
       <router-view/>
     </div>
@@ -59,5 +54,6 @@ body{
 
 .content-wrapper{
   height: 630px;
+  margin-top: 80px;
 }
 </style>

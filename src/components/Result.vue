@@ -3,11 +3,12 @@
         <div class="score-wrapper">
             <p>正解数:{{correct}}</p>
             <p>不正解数:{{incorrect}}</p>
-            <p>正解率{{correctRate}}</p>
+            <p>正解率:{{correctRate}}%</p>
         </div>
         <div class="link-btn-wrapper">
             <router-link to="/" class="link-btn">Home</router-link> 
-            <router-link to="/typing" class="link-btn">Restart</router-link>
+            <a class="link-btn" v-on:click="reset()">Restart</a>
+            
         </div>
     </div>
 </template>
@@ -25,8 +26,13 @@ export default {
     },
     computed: {
         correctRate(){
-            return (this.correct / (this.correct + this.incorrect)).toFixed(2);
+            return ((this.correct / (this.correct + this.incorrect)).toFixed(2)) * 100;
         }
+    },
+    methods: {
+        reset() {
+            this.$router.go({path: this.$router.currentRoute.path, force: true})
+        },
     },
 }
 </script>
